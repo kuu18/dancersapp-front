@@ -1,73 +1,45 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        dancersapp
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
+  <v-container fluid>
+    <v-card
+      flat
+      tile
+      color="transparent"
+    >
+      <v-card-title>
+        VuetifyカスタムCSSの検証
+      </v-card-title>
+      <v-card-text>
+        ipad（768px）とmobile（426px）で表示・非表示
+      </v-card-text>
+      <v-card-text>
+        <v-card
+          v-for="(cls, i) in customClass"
+          :key="`cls-${i}`"
+          :color="cls.color"
+          :class="cls.name"
         >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+          <v-card-text>
+            {{ cls.des }}
+          </v-card-text>
+        </v-card>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      colors: ['primary', 'info', 'success', 'warning', 'error', 'background'],
+      // 追加
+      customClass: [
+        { name: 'hidden-ipad-and-down', color: 'error', des: 'ipad未満で隠す' },
+        { name: 'hidden-ipad-and-up', color: 'info', des: 'ipad以上で隠す' },
+        { name: 'hidden-mobile-and-down', color: 'success', des: 'mobile未満で隠す' },
+        { name: 'hidden-mobile-and-up', color: 'warning', des: 'mobile以上で隠す' }
+      ]
+    }
+  }
+}
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
