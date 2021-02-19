@@ -11,4 +11,11 @@ ENV HOME=/${WORKDIR} \
 
 WORKDIR ${HOME}
 
+COPY package*.json ./
+RUN yarn install
+
+COPY . ./
+
+RUN yarn run build
+
 EXPOSE ${CONTAINER_PORT}
