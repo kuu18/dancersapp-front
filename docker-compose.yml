@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        WORKDIR: $WORKDIR
+        CONTAINER_PORT: $CONTAINER_PORT
+        API_URL: "http://localhost:$API_PORT"
+    command: yarn run dev
+    volumes:
+      - .:/$WORKDIR
+    ports:
+      - "$FRONT_PORT:$CONTAINER_PORT"
+    tty: true
+    stdin_open: true
