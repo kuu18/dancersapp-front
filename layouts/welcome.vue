@@ -1,9 +1,11 @@
 <template>
   <v-app>
-    <wel-app-bar
+    <welcome-app-bar
       :menus="menus"
+      :img-height="imgHeight"
     />
     <v-img
+      id="scroll-top"
       dark
       :src="image_src"
       gradient="to top right, rgba(211,211,211,.6), rgba(119,136,153,.9)"
@@ -43,6 +45,7 @@
         >
           <v-col
             cols="12"
+            :id="menu.title"
           >
             <v-card flat>
               <v-card-title class="justify-center display-1">
@@ -65,13 +68,11 @@
 <script>
 import welAbout from '~/components/welcome/welAbout'
 import welUsage from '~/components/welcome/welUsage'
-import WelAppBar from '~/components/welcome/welAppBar'
 
 export default {
   components: {
     welAbout,
-    welUsage,
-    WelAppBar
+    welUsage
   },
   data () {
     return {
