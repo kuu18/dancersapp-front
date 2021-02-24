@@ -26,8 +26,8 @@
         {{ $t(`menus.${menu.title}`) }}
       </v-btn>
     </v-toolbar-items>
-    <ui-signup-link />
-    <ui-login-link />
+    <bef-login-signup-link />
+    <bef-login-login-link />
     <v-menu
       bottom
       nudge-left="110"

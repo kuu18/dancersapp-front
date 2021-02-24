@@ -17,8 +17,8 @@
 
     <v-spacer />
 
-    <ui-signup-link />
-    <ui-login-link />
+    <bef-login-signup-link />
+    <bef-login-login-link />
   </v-app-bar>
 </template>
 
