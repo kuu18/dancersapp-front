@@ -9,11 +9,9 @@
     <ui-app-logo
       @click.native="goTo('scroll-top')"
     />
-    <v-toolbar-title
+    <ui-app-title
       class="hidden-mobile-and-down"
-    >
-      {{ appName }}
-    </v-toolbar-title>
+    />
 
     <v-spacer />
 
@@ -28,8 +26,8 @@
         {{ $t(`menus.${menu.title}`) }}
       </v-btn>
     </v-toolbar-items>
-    <ui-signup-link />
-    <ui-login-link />
+    <bef-login-signup-link />
+    <bef-login-login-link />
     <v-menu
       bottom
       nudge-left="110"
@@ -72,9 +70,8 @@ export default {
       default: 0
     }
   },
-  data ({ $config: { appName }, $store }) {
+  data ({ $store }) {
     return {
-      appName,
       scrollY: 0,
       appBarHeight: $store.state.styles.beforeLogin.appBarHeight
     }
