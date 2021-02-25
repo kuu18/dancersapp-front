@@ -65,6 +65,11 @@ class Authentication {
       return this.removeStorage()
     }
   }
+
+  unauthError () {
+    this.removeStorage()
+    throw this.error({ statusCode: 401, message: 'Unauthorized' })
+  }
 }
 
 export default ({ store, $axios, error, $config }, inject) => {
