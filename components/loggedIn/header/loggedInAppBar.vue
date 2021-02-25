@@ -6,8 +6,9 @@
     elevation="1"
     clipped-left
   >
+    <slot name="nav-icon" />
     <nuxt-link
-      to="/"
+      to="/home"
       class="text-decoration-none"
     >
       <ui-app-logo />
@@ -16,6 +17,18 @@
     <ui-app-title />
 
     <v-spacer />
+    <nuxt-link
+      to="/home"
+      class="text-decoration-none"
+    >
+      <v-btn
+        icon
+      >
+        <v-icon>
+          mdi-home
+        </v-icon>
+      </v-btn>
+    </nuxt-link>
 
     <v-menu
       app
@@ -23,7 +36,7 @@
       offset-y
       max-width="200"
     >
-      <template v-slot:activator="{ on }">
+      <template #activator="{ on }">
         <v-btn
           icon
           v-on="on"
