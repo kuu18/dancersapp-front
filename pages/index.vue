@@ -1,7 +1,5 @@
 <template>
-  <div>
-    index.vue
-  </div>
+  <div />
 </template>
 
 <script>
