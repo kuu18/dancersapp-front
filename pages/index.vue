@@ -7,8 +7,8 @@
 <script>
 export default {
   layout: 'welcome',
-  middleware ({ store, redirect }) {
-    if (store.state.loggedIn) {
+  middleware ({ $auth, redirect }) {
+    if ($auth.loggedIn) {
       redirect('/home')
     }
   }
