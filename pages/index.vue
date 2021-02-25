@@ -6,8 +6,11 @@
 
 <script>
 export default {
-  layout ({ store }) {
-    return store.state.loggedIn ? 'loggedIn' : 'welcome'
+  layout: 'welcome',
+  middleware ({ store, redirect }) {
+    if (store.state.loggedIn) {
+      redirect('/home')
+    }
   }
 }
 </script>

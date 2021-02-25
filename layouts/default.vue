@@ -1,5 +1,8 @@
 <template>
   <v-app>
-    <nuxt />
+    <logged-in-header />
+    <v-main>
+      <nuxt />
+    </v-main>
   </v-app>
 </template>
