@@ -8,7 +8,7 @@ export const state = () => ({
     }
   },
   rememberRoute: {
-    name: 'index',
+    name: 'home',
     params: {}
   },
   toast: {
@@ -37,7 +37,7 @@ export const actions = {
     commit('setCurrentUser', user)
   },
   getRememberRoute ({ commit }, route) {
-    route = route || { name: 'index', params: {} }
+    route = route || { name: 'home', params: {} }
     commit('setRememberRoute', { name: route.name, params: route.params })
   },
   getToast ({ commit }, toast) {

@@ -64,7 +64,9 @@ export default {
       this.$router.push(this.$store.state.rememberRoute)
     },
     authFailure ({ response }) {
-      this.$store.dispatch('getToast', { msg: 'ユーザーが見つかりません。パスワードとメールアドレスを確認してください。' })
+      return (response.status === 404)
+        ? this.$store.dispatch('getToast', { msg: 'ユーザーが見つかりません。パスワードとメールアドレスを確認してください' })
+        : this.$my.errorHandler(response)
     }
   }
 }
