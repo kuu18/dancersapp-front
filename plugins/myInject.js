@@ -1,6 +1,7 @@
 class MyInject {
-  constructor (app) {
-    this.app = app
+  constructor (ctx) {
+    this.app = ctx.app
+    this.error = ctx.error
   }
 
   pageTitle (routeName) {
@@ -12,7 +13,11 @@ class MyInject {
   homeLinkTo (name = 'profile') {
     return { name }
   }
+
+  errorHandler ({ status, statusText }) {
+    return this.error({ statusCode: status, message: statusText })
+  }
 }
-export default ({ app }, inject) => {
-  inject('my', new MyInject(app))
+export default ({ app, error }, inject) => {
+  inject('my', new MyInject({ app, error }))
 }
