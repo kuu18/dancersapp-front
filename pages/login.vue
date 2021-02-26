@@ -1,6 +1,7 @@
 <template>
   <bef-login-form-card>
     <template #form-card-content>
+      <ui-toaster />
       <v-form
         ref="form"
         v-model="isValid"
@@ -63,7 +64,7 @@ export default {
       this.$router.push(this.$store.state.rememberRoute)
     },
     authFailure ({ response }) {
-      console.log(response)
+      this.$store.dispatch('getToast', { msg: 'ユーザーが見つかりません。パスワードとメールアドレスを確認してください。' })
     }
   }
 }
