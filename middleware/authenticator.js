@@ -7,7 +7,7 @@ export default async ({ $auth, store, route, redirect }) => {
     } else {
       store.dispatch('getRememberRoute', route)
     }
-    console.log(msg)
+    store.dispatch('getToast', { msg })
     return redirect('/login')
   } else if (!$auth.isUserPresent()) {
     return $auth.unauthError()

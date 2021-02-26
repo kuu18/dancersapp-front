@@ -68,10 +68,10 @@ export default {
           info: '4FC1E9',
           success: '44D69E',
           warning: 'FEB65E',
-          error: 'FB8678',
+          error: 'B00020',
           background: 'F5F5F5',
           myred: '8f3d4d',
-          myblue: '8C9EFF'
+          myblue: '3949AB'
         }
       }
     }
