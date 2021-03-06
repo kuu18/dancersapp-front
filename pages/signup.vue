@@ -1,6 +1,7 @@
 <template>
   <bef-login-form-card>
     <template #form-card-content>
+      <ui-toaster />
       <v-form
         ref="form"
         v-model="isValid"
@@ -36,16 +37,29 @@ export default {
     return {
       isValid: false,
       loading: false,
-      params: { user: { name: '', email: '', password: '' } }
+      params: { user: { name: '', email: '', password: '' } },
+      errors: {}
     }
   },
   methods: {
-    signup () {
+    async signup () {
       this.loading = true
-      setTimeout(() => {
+      if (this.isValid) {
+        await this.$axios.$post('/api/v1/users', this.params)
+          .then(response => this.succeeded(response))
+      }
+      this.loading = false
+    },
+    succeeded ({ type, msg, errors }) {
+      if (type === 'info') {
+        console.log(type, msg, errors)
         this.formReset()
-        this.loading = false
-      }, 1500)
+        this.$store.dispatch('getToast', { msg, color: type, timeout: -1 })
+      } else if (type === 'error') {
+        console.log(type, msg, errors)
+        this.errors = errors
+        this.$store.dispatch('getToast', { msg: this.errors, color: type })
+      }
     },
     formReset () {
       this.$refs.form.reset()
