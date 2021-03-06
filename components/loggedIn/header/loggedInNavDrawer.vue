@@ -8,7 +8,7 @@
     <v-list>
       <v-list-item class="px-2">
         <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+          <v-img src="https://randomuser.me/api/portraits/women/85.jpg" />
         </v-list-item-avatar>
       </v-list-item>
 
@@ -24,7 +24,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <v-divider />
       <v-list-item
         v-for="(nav, i) in navMenus"
         :key="`nav-${i}`"

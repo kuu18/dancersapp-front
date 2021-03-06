@@ -14,9 +14,6 @@
         <user-form-password
           :password.sync="params.user.password"
         />
-        <user-form-password-conf
-          :password-conf.sync="params.user.password_confirmation"
-        />
         <v-btn
           :disabled="!isValid || loading"
           :loading="loading"
@@ -39,7 +36,7 @@ export default {
     return {
       isValid: false,
       loading: false,
-      params: { user: { name: '', email: '', password: '', password_confirmation: '' } }
+      params: { user: { name: '', email: '', password: '' } }
     }
   },
   methods: {
@@ -52,7 +49,7 @@ export default {
     },
     formReset () {
       this.$refs.form.reset()
-      this.params = { user: { name: '', email: '', password: '', password_confirmation: '' } }
+      this.params = { user: { name: '', email: '', password: '' } }
     }
   }
 }
