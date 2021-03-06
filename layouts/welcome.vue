@@ -44,8 +44,8 @@
           :key="`menu-${i}`"
         >
           <v-col
-            cols="12"
             :id="menu.title"
+            cols="12"
           >
             <v-card flat>
               <v-card-title class="justify-center display-1">
