@@ -32,6 +32,7 @@
 
 <script>
 export default {
+  name: 'Signup',
   layout: 'beforeLogin',
   data () {
     return {
