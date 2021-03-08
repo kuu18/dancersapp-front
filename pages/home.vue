@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ui-toaster />
     home.vue
   </div>
 </template>

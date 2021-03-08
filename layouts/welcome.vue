@@ -4,6 +4,7 @@
       :menus="menus"
       :img-height="imgHeight"
     />
+    <ui-toaster />
     <v-img
       id="scroll-top"
       dark
@@ -68,8 +69,8 @@
 <script>
 import welAbout from '~/components/welcome/welAbout'
 import welUsage from '~/components/welcome/welUsage'
-
 export default {
+  name: 'Welcome',
   components: {
     welAbout,
     welUsage

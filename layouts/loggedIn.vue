@@ -9,6 +9,7 @@
 
 <script>
 export default {
+  name: 'LoggedIn',
   middleware: 'authenticator'
 }
 </script>
