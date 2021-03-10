@@ -42,11 +42,11 @@ export default {
     }
   },
   beforeDestroy () {
-    this.resetToast()
+    if (!this.toast.color === 'success') { this.resetToast() }
   },
   methods: {
     resetToast () {
-      return this.$store.dispatch('getToast', { msg: null })
+      return this.$store.dispatch('getToast', { msg: null, color: 'transparent' })
     }
   }
 }

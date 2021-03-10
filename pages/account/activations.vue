@@ -27,10 +27,13 @@ export default {
         this.$auth.login({ exp, user })
         this.$store.dispatch('getToast', { msg, color: type })
         this.$router.push({ path: '/home' })
+      } else if (type === 'error') {
+        this.$store.dispatch('getToast', { msg, color: type })
+        this.$router.push({ path: '/' })
       }
     },
-    invalidToken ({ msg, type }) {
-      this.$store.dispatch('getToast', { msg: msg || 'トークンが不正です', color: type || 'error', timeout: -1 })
+    invalidToken () {
+      this.$store.dispatch('getToast', { msg: 'トークンが不正です', color: 'error', timeout: -1 })
     }
   }
 }
