@@ -6,7 +6,6 @@
     :hint="form.hint"
     label="パスワードを入力"
     :placeholder="form.placeholder"
-    :hide-details="noValidation"
     :append-icon="toggle.icon"
     :type="toggle.type"
     outlined

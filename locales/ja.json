@@ -11,8 +11,12 @@
     "profile": "プロフィール",
     "events": "イベント",
     "search": "探す",
-    "account": {
-      "settings": "アカウント設定",
+    "password": {
+      "resets": "パスワード再設定メールを送信",
+      "new": "新しいパスワードを登録する"
+    },
+    "settings": {
+      "account": "アカウント設定",
       "password": "パスワード変更"
     }
   },
