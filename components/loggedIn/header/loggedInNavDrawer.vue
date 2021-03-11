@@ -8,19 +8,19 @@
     <v-list>
       <v-list-item class="px-2">
         <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/women/85.jpg" />
+          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
         </v-list-item-avatar>
       </v-list-item>
 
       <v-list-item
         link
-        to="account/profile"
+        :to="currentUser.user_name"
       >
         <v-list-item-content>
           <v-list-item-title class="title">
-            Sandra Adams
+            {{ currentUser.name }}
           </v-list-item-title>
-          <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ currentUser.email }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -76,7 +76,8 @@ export default {
         { name: 'home', icon: 'mdi-home' },
         { name: 'events', icon: 'mdi-view-compact' },
         { name: 'search', icon: 'mdi-image' }
-      ]
+      ],
+      currentUser: this.$store.state.current.user
     }
   },
   computed: {

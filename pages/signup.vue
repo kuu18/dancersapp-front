@@ -9,6 +9,9 @@
         <user-form-name
           :name.sync="params.user.name"
         />
+        <user-form-user-name
+          :user-name.sync="params.user.user_name"
+        />
         <user-form-email
           :email.sync="params.user.email"
         />
@@ -38,7 +41,7 @@ export default {
     return {
       isValid: false,
       loading: false,
-      params: { user: { name: '', email: '', password: '' } },
+      params: { user: { name: '', user_name: '', email: '', password: '' } },
       errors: {}
     }
   },
@@ -64,7 +67,7 @@ export default {
     },
     formReset () {
       this.$refs.form.reset()
-      this.params = { user: { name: '', email: '', password: '' } }
+      this.params = { user: { name: '', user_name: '', email: '', password: '' } }
     }
   }
 }
