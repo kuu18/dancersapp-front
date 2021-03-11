@@ -51,7 +51,9 @@
           ログイン中のユーザー
         </v-subheader>
 
-        <v-list-item>
+        <v-list-item
+          :to="currentUser.user_name"
+        >
           <v-list-item-content>
             <v-list-item-subtitle>
               {{ $auth.user.name }}
@@ -96,7 +98,8 @@ export default {
         { name: 'settings-account', icon: 'mdi-account-cog' },
         { name: 'settings-password', icon: 'mdi-lock-outline' },
         { name: 'logout', icon: 'mdi-logout-variant', divider: true }
-      ]
+      ],
+      currentUser: this.$store.state.current.user
     }
   }
 }
