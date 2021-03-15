@@ -7,14 +7,16 @@
         <v-row>
           <v-col>
             <v-app-bar
-              color="myblue"
+              color="red lighten-2"
               dense
               dark
               flat
             >
-              <v-toolbar-title>パスワード変更</v-toolbar-title>
+              <v-toolbar-title>アカウント削除</v-toolbar-title>
+
               <v-spacer />
-              <v-icon>mdi-lock</v-icon>
+
+              <v-icon>mdi-account-off</v-icon>
             </v-app-bar>
           </v-col>
         </v-row>
@@ -29,39 +31,38 @@
             md="8"
             lg="6"
           >
+            <v-card-text>
+              <p>アカウントを削除すると、アカウントに紐付く全てのデータが削除されます。</p>
+              <p style="font-weight: bold;">
+                二度と復旧できませんのでご注意ください。
+              </p>
+            </v-card-text>
             <v-form
               ref="form"
               v-model="isValid"
             >
               <v-card-text>
-                現在のパスワード
+                ログイン中のメールアドレス
               </v-card-text>
-              <user-form-password
-                :password.sync="params.user.old_password"
-              />
               <v-card-text>
-                新しいパスワード
+                <h4>{{ currentUser.email }}</h4>
+              </v-card-text>
+              <v-card-text>
+                パスワードを入力してください
               </v-card-text>
               <user-form-password
                 :password.sync="params.user.password"
               />
               <v-card-text class="px-0">
                 <v-btn
-                  color="myblue"
+                  color="red lighten-2"
                   class="white--text"
                   :disabled="!isValid || loading"
                   :loading="loading"
-                  @click="update"
+                  @click="destroy"
                 >
-                  変更する
+                  アカウントを削除
                 </v-btn>
-                <nuxt-link
-                  to="/password/resets"
-                  class="body-2 text-decoration-none float-right"
-                  @click="rememberRoute"
-                >
-                  パスワードを忘れた?
-                </nuxt-link>
               </v-card-text>
             </v-form>
           </v-col>
@@ -72,27 +73,27 @@
 </template>
 <script>
 export default {
-  name: 'SettingsPassword',
   layout: 'loggedIn',
   data ({ $auth }) {
     return {
       isValid: false,
       loading: false,
       currentUser: $auth.user,
-      params: { user: { password: '', old_password: '' } }
+      params: { user: { password: '' } }
     }
   },
   methods: {
-    async update () {
+    async destroy () {
       this.loading = true
       if (this.isValid) {
-        await this.$axios.$patch('/api/v1/users/chenge_password', this.params)
+        await this.$axios.$delete('/api/v1/users', { data: this.params })
           .then(response => this.succeeded(response))
       }
       this.loading = false
     },
     succeeded ({ msg, type }) {
       this.$store.dispatch('getToast', { msg, color: type })
+      this.$router.replace('/')
     }
   }
 }

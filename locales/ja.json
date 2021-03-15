@@ -16,8 +16,10 @@
       "new": "新しいパスワードを登録する"
     },
     "settings": {
-      "account": "アカウント設定",
-      "password": "パスワード変更"
+      "account": "プロフィール編集",
+      "email": "メールアドレス変更",
+      "password": "パスワード変更",
+      "delete": "アカウント削除"
     }
   },
   "error": {
