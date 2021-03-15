@@ -2,7 +2,7 @@
   <v-btn
     outlined
     dark
-    color="myred"
+    color="primary"
     class="ml-2 font-weight-bold"
     to="/signup"
   >

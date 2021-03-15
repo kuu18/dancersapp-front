@@ -64,14 +64,14 @@ export default {
     theme: {
       themes: {
         light: {
-          primary: '4080BE',
+          primary: 'ACCBE1',
           info: '4FC1E9',
           success: '44D69E',
           warning: 'FEB65E',
-          error: 'B00020',
+          error: 'F9B9B7',
           background: 'F5F5F5',
-          myred: '8f3d4d',
-          myblue: '3949AB'
+          myred: 'A13D63',
+          myblue: 'ACCBE1'
         }
       }
     }

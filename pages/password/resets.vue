@@ -10,6 +10,7 @@
           <user-form-email
             :email.sync="params.password_reset.email"
             no-validation
+            :logged-in="login"
           />
           <v-card-text class="px-0">
             <v-btn
@@ -26,6 +27,7 @@
           <v-divider />
           <v-card-actions>
             <nuxt-link
+              v-if="login === false"
               to="/signup"
               class="body-2 text-decoration-none"
             >
@@ -75,13 +77,23 @@
 <script>
 export default {
   name: 'AccountPasswordReset',
-  layout: 'beforeLogin',
+  layout ({ $auth }) {
+    return $auth.loggedIn ? 'loggedIn' : 'beforeLogin'
+  },
   data () {
     return {
       isValid: false,
       loading: false,
       send: false,
+      login: false,
+      currentUser: this.$store.state.current.user,
       params: { password_reset: { email: '' } }
+    }
+  },
+  created () {
+    if (this.$auth.loggedIn) {
+      this.params.password_reset.email = this.currentUser.email
+      this.login = true
     }
   },
   methods: {

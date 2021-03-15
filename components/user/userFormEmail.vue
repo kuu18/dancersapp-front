@@ -5,6 +5,7 @@
     label="メールアドレスを入力"
     :placeholder="form.placeholder"
     outlined
+    :disabled="form.disabled"
   />
 </template>
 
@@ -16,6 +17,10 @@ export default {
       default: ''
     },
     noValidation: {
+      type: Boolean,
+      default: false
+    },
+    loggedIn: {
       type: Boolean,
       default: false
     }
@@ -35,7 +40,8 @@ export default {
     },
     form () {
       const placeholder = this.noValidation ? undefined : 'your@email.com'
-      return { placeholder }
+      const disabled = this.loggedIn
+      return { placeholder, disabled }
     }
   }
 }
