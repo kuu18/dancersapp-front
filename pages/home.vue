@@ -1,12 +1,152 @@
 <template>
-  <div>
-    <ui-toaster />
-    home.vue
-  </div>
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-card
+          v-for="(event, i) in eventPosts"
+          :key="`card-${i}`"
+          class="mx-auto my-8"
+          max-width="500"
+        >
+          <v-app-bar
+            light
+            color="white"
+          >
+            <v-toolbar-title>{{ event.user.name }}</v-toolbar-title>
+
+            <v-spacer />
+
+            <v-menu
+              left
+              bottom
+            >
+              <template #activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+
+              <v-list>
+                <v-list-item
+                  link
+                  @click="destroy(event.id)"
+                >
+                  <v-list-item-icon>
+                    <v-icon>mdi-trash-can-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>削除</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-app-bar>
+          <v-img
+            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+            height="400px"
+          />
+
+          <v-card-title>
+            {{ event.event_name }}
+          </v-card-title>
+
+          <v-card-subtitle>
+            {{ dateFormat(event.event_date) }}~
+          </v-card-subtitle>
+
+          <v-card-actions>
+            <v-btn
+              color="orange lighten-2"
+              text
+            >
+              <v-icon>
+                mdi-comment-outline
+              </v-icon>
+            </v-btn>
+            <v-btn
+              color="orange lighten-2"
+              text
+            >
+              <v-icon>
+                mdi-heart
+              </v-icon>
+            </v-btn>
+            <v-btn
+              color="orange lighten-2"
+              text
+            >
+              <v-icon>
+                mdi-bookmark-plus-outline
+              </v-icon>
+            </v-btn>
+
+            <v-spacer />
+
+            <v-btn
+              icon
+              @click="show = !show"
+            >
+              <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+            </v-btn>
+          </v-card-actions>
+
+          <v-expand-transition>
+            <div v-show="show">
+              <v-divider />
+
+              <v-card-text>
+                {{ event.content }}
+              </v-card-text>
+            </div>
+          </v-expand-transition>
+          <v-card-actions>
+            <v-textarea
+              class="mx-2"
+              label="コメント"
+              rows="1"
+              prepend-icon="mdi-comment-outline"
+            />
+          </v-card-actions>
+          <v-card-text>
+            {{ dateFormat(event.created_at) }}
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 export default {
-  layout: 'default'
+  layout: 'default',
+  data ($store) {
+    return {
+      show: false,
+      eventPosts: this.$store.state.eventPosts
+    }
+  },
+  computed: {
+    dateFormat () {
+      return (date) => {
+        const dateTimeFormat = new Intl.DateTimeFormat(
+          'ja', { dateStyle: 'medium', timeStyle: 'short' }
+        )
+        return dateTimeFormat.format(new Date(date))
+      }
+    }
+  },
+  methods: {
+    destroy (eventId) {
+      const id = eventId
+      this.$axios.$delete('/api/v1/eventposts/' + id)
+        .then(response => this.succeeded(response))
+    },
+    succeeded ({ msg, type }) {
+      this.$router.go({ path: '/home', force: true })
+      this.$store.dispatch('getToast', { msg, color: type })
+    }
+  }
 }
 </script>

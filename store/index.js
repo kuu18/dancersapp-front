@@ -2,6 +2,7 @@ export const state = () => ({
   current: {
     user: null
   },
+  eventPosts: [],
   styles: {
     beforeLogin: {
       appBarHeight: 56
@@ -29,6 +30,9 @@ export const mutations = {
   },
   setToast (state, payload) {
     state.toast = payload
+  },
+  setEventPosts (state, payload) {
+    state.eventPosts = payload
   }
 }
 
@@ -44,5 +48,8 @@ export const actions = {
     toast.color = toast.color || 'error'
     toast.timeout = toast.timeout || 4000
     commit('setToast', toast)
+  },
+  getEventPosts ({ commit }, eventPosts) {
+    commit('setEventPosts', eventPosts)
   }
 }

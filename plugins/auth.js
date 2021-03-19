@@ -50,6 +50,7 @@ class Authentication {
     this.$axios.$delete('/api/v1/logout')
     this.removeStorage()
     this.store.dispatch('getCurrentUser', null)
+    this.store.dispatch('getProjects', [])
   }
 
   encrypt (exp) {

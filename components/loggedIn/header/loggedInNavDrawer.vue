@@ -41,24 +41,31 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider />
-
-      <v-list-item
-        href="https://blog.cloud-acct.com/categories/udemy"
-        target="_blank"
-      >
-        <v-list-item-icon>
-          <v-icon>
-            mdi-open-in-new
-          </v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>
-            このアプリの作り方
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
     </v-list>
+    <template #append>
+      <v-tooltip right>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            class="mx-2"
+            color="primary"
+            fab
+            dark
+            v-bind="attrs"
+            v-on="on"
+            @click="dialog = !dialog"
+          >
+            <v-icon dark>
+              mdi-plus
+            </v-icon>
+          </v-btn>
+          <posts-dialog
+            :dialog.sync="dialog"
+            @change-dialog="changeDialog"
+          />
+        </template>
+        <span>投稿する</span>
+      </v-tooltip>
+    </template>
   </v-navigation-drawer>
 </template>
 
@@ -77,13 +84,19 @@ export default {
         { name: 'events', icon: 'mdi-view-compact' },
         { name: 'search', icon: 'mdi-image' }
       ],
-      currentUser: this.$store.state.current.user
+      currentUser: this.$store.state.current.user,
+      dialog: false
     }
   },
   computed: {
     setDrawer: {
       get () { return this.drawer },
       set (val) { return this.$emit('update:drawer', val) }
+    }
+  },
+  methods: {
+    changeDialog () {
+      this.dialog = !(this.dialog)
     }
   }
 }
