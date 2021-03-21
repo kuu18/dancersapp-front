@@ -58,7 +58,7 @@
               mdi-plus
             </v-icon>
           </v-btn>
-          <posts-dialog
+          <eventposts-dialog
             :dialog.sync="dialog"
             @change-dialog="changeDialog"
           />
