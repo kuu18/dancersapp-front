@@ -15,48 +15,48 @@
               <v-form
                 ref="form"
                 v-model="isValid"
-                >
-              <v-row>
-                <v-col cols="12">
-                  <eventposts-form-name
-                    :event-name.sync="event_name"
-                  />
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <eventposts-form-date
-                    :event-date.sync="date"
-                    :date-menu.sync="menu"
-                    @change-date-menu="changeDateMenu"
-                  />
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <eventposts-form-time
-                    :event-time.sync="time"
-                    :time-dialog.sync="timeDialog"
-                    @change-time-dialog="changeTimeDialog"
-                  />
-                </v-col>
-                <v-col
-                  cols="12"
-                >
-                  <eventposts-form-content
-                    :event-content.sync="content"
-                  />
-                </v-col>
-                <v-col
-                  cols="12"
-                >
-                  <v-file-input
-                    :rules="[v => !!v || '']"
-                    label="画像を選択"
-                    dense
-                    prepend-icon="mdi-camera"
-                    show-size
-                    accept="image/png,image/jpeg,image/gif"
-                    @change="onUpload"
-                  />
-                </v-col>
-              </v-row>
+              >
+                <v-row>
+                  <v-col cols="12">
+                    <eventposts-form-name
+                      :event-name.sync="event_name"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <eventposts-form-date
+                      :event-date.sync="date"
+                      :date-menu.sync="menu"
+                      @change-date-menu="changeDateMenu"
+                    />
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <eventposts-form-time
+                      :event-time.sync="time"
+                      :time-dialog.sync="timeDialog"
+                      @change-time-dialog="changeTimeDialog"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                  >
+                    <eventposts-form-content
+                      :event-content.sync="content"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-file-input
+                      :rules="[v => !!v || '']"
+                      label="画像を選択"
+                      dense
+                      prepend-icon="mdi-camera"
+                      show-size
+                      accept="image/png,image/jpeg,image/gif"
+                      @change="onUpload"
+                    />
+                  </v-col>
+                </v-row>
               </v-form>
             </v-container>
           </v-card-text>
