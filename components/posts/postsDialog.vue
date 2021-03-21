@@ -15,7 +15,7 @@
               <v-row>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="params.eventpost.event_name"
+                    v-model="event_name"
                     label="イベント名"
                     required
                   />
@@ -90,11 +90,23 @@
                   cols="12"
                 >
                   <v-textarea
-                    v-model="params.eventpost.content"
+                    v-model="content"
                     clearable
                     counter
                     clear-icon="mdi-close-circle"
                     label="イベント概要"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <v-file-input
+                    label="画像を選択"
+                    dense
+                    prepend-icon="mdi-camera"
+                    show-size
+                    @change="onUpload"
+                    accept="image/png,image/jpeg,image/gif"
                   />
                 </v-col>
               </v-row>
@@ -117,6 +129,7 @@
               投稿する
             </v-btn>
           </v-card-actions>
+          {{ image }}
         </v-card>
       </v-dialog>
     </v-row>
@@ -136,7 +149,9 @@ export default {
       menu: false,
       time: null,
       modal: false,
-      params: { eventpost: { event_name: '', event_date: '', content: '' } },
+      event_name: '',
+      content: '',
+      image: null,
       errors: null
     }
   },
@@ -147,16 +162,28 @@ export default {
     }
   },
   methods: {
+    onUpload (e) {
+      this.image = e
+    },
     async post () {
-      this.params.eventpost.event_date = this.date + '-' + this.time
-      await this.$axios.$post('/api/v1/eventposts', this.params)
+      const formData = new FormData()
+      formData.append('image', this.image)
+      formData.append('event_name', this.event_name)
+      formData.append('event_date', this.date + '-' + this.time)
+      formData.append('content', this.content)
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }
+      await this.$axios.$post('/api/v1/eventposts', formData, config)
         .then(response => this.postSuccessful(response))
     },
     postSuccessful ({ msg, type, errors }) {
       if (type === 'success') {
-        location.reload()
         this.$emit('change-dialog')
         this.$store.dispatch('getToast', { msg, color: type })
+        this.$router.go()
       } else if (type === 'error') {
         this.errors = errors
         this.$store.dispatch('getToast', { msg: errors, color: type })

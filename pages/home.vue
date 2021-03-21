@@ -17,6 +17,7 @@
             <v-spacer />
 
             <v-menu
+              v-if="event.user.id === $auth.user.id"
               left
               bottom
             >
@@ -44,7 +45,7 @@
             </v-menu>
           </v-app-bar>
           <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+            :src="event.image_url"
             height="400px"
           />
 
@@ -144,8 +145,8 @@ export default {
         .then(response => this.succeeded(response))
     },
     succeeded ({ msg, type }) {
-      this.$router.go({ path: '/home', force: true })
       this.$store.dispatch('getToast', { msg, color: type })
+      this.$router.go()
     }
   }
 }
