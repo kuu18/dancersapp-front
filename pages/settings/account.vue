@@ -125,6 +125,7 @@ export default {
     },
     succeeded ({ msg, type }) {
       this.$store.dispatch('getToast', { msg, color: type })
+      this.$router.go()
     }
   }
 }

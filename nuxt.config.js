@@ -27,6 +27,7 @@ export default {
   plugins: [
     'plugins/auth',
     'plugins/axios',
+    'plugins/localStorage',
     'plugins/myInject',
     'plugins/nuxtClientInit'
   ],

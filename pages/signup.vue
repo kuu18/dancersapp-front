@@ -56,11 +56,9 @@ export default {
     },
     succeeded ({ type, msg, errors }) {
       if (type === 'info') {
-        console.log(type, msg, errors)
         this.formReset()
         this.$store.dispatch('getToast', { msg, color: type, timeout: -1 })
       } else if (type === 'error') {
-        console.log(type, msg, errors)
         this.errors = errors
         this.$store.dispatch('getToast', { msg: this.errors, color: type })
       }

@@ -2,6 +2,7 @@
   <v-app>
     <logged-in-header />
     <v-main>
+      <ui-toaster />
       <nuxt />
     </v-main>
   </v-app>
@@ -9,6 +10,6 @@
 <script>
 export default {
   name: 'Default',
-  middleware: 'authenticator'
+  middleware: ['authenticator', 'getEventPosts']
 }
 </script>

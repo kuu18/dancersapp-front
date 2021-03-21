@@ -6,7 +6,17 @@
     :timeout="toast.timeout"
     :color="toast.color"
   >
-    {{ toast.msg }}
+    <div
+      v-for="(msg, i) in arrayMsg"
+      :key="`msg-${i}`"
+    >
+      <ul>
+        <li>{{ msg }}</li>
+      </ul>
+    </div>
+    <div v-if="!(Array.isArray(toast.msg))">
+      {{ toast.msg }}
+    </div>
     <template #action="{ attrs }">
       <v-btn
         v-bind="attrs"
@@ -39,10 +49,13 @@ export default {
         this.resetToast()
         return val
       }
+    },
+    arrayMsg () {
+      if (Array.isArray(this.toast.msg)) { return this.toast.msg } else { return null }
     }
   },
   beforeDestroy () {
-    if (!this.toast.color === 'success') { this.resetToast() }
+    if (this.toast.color === 'info') { this.resetToast() }
   },
   methods: {
     resetToast () {
