@@ -1,12 +1,17 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
+    <v-row
+      justify="center"
+      align="center"
+    >
+      <v-col
+        cols="12"
+        md="7"
+      >
         <v-card
           v-for="(event, i) in eventPosts"
           :key="`card-${i}`"
           class="mx-auto my-8"
-          max-width="500"
         >
           <v-app-bar
             light
@@ -46,7 +51,6 @@
           </v-app-bar>
           <v-img
             :src="event.image_url"
-            height="400px"
           />
 
           <v-card-title>
