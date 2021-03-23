@@ -4,7 +4,7 @@
       <v-dialog
         v-model="setDialog"
         persistent
-        max-width="600px"
+        max-width="1000"
       >
         <v-card>
           <v-card-title>
@@ -46,15 +46,12 @@
                   <v-col
                     cols="12"
                   >
-                    <v-file-input
-                      :rules="[v => !!v || '']"
-                      label="画像を選択"
-                      dense
-                      prepend-icon="mdi-camera"
-                      show-size
-                      accept="image/png,image/jpeg,image/gif"
-                      @change="onUpload"
+                    <eventposts-form-image
+                      @resized="uploadImage"
                     />
+                  </v-col>
+                  <v-col>
+                    <v-img :src="image" :height="canvas.height" :width="canvas.width" />
                   </v-col>
                 </v-row>
               </v-form>
@@ -100,10 +97,12 @@ export default {
       timeDialog: false,
       event_name: '',
       content: '',
-      image: null,
       errors: null,
       isValid: false,
-      loading: false
+      loading: false,
+      blob: null,
+      image: null,
+      canvas: ''
     }
   },
   computed: {
@@ -113,8 +112,10 @@ export default {
     }
   },
   methods: {
-    onUpload (e) {
-      this.image = e
+    uploadImage ({ url, blob, canvas }) {
+      this.image = url
+      this.blob = blob
+      this.canvas = canvas
     },
     changeDateMenu () {
       this.menu = !(this.menu)
@@ -124,7 +125,7 @@ export default {
     },
     async submit () {
       const formData = new FormData()
-      if (!(this.image === null)) { formData.append('image', this.image) }
+      formData.append('image', this.blob)
       formData.append('event_name', this.event_name)
       formData.append('event_date', this.date + '-' + this.time)
       formData.append('content', this.content)
