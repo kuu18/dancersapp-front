@@ -20,6 +20,10 @@
       "email": "メールアドレス変更",
       "password": "パスワード変更",
       "delete": "アカウント削除"
+    },
+    "userName": {
+      "following": "フォロー中",
+      "followers": "フォロワー"
     }
   },
   "error": {

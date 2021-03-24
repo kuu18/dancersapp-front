@@ -14,7 +14,7 @@
 
       <v-list-item
         link
-        :to="currentUser.user_name"
+        :to="`/${currentUser.user_name}`"
       >
         <v-list-item-content>
           <v-list-item-title class="title">
