@@ -34,6 +34,16 @@
             ログインする
           </v-btn>
         </v-card-text>
+        <v-card-text class="px-0">
+          <v-btn
+            block
+            color="primary"
+            class="white--text"
+            @click="guestLogin"
+          >
+            ゲストログイン
+          </v-btn>
+        </v-card-text>
       </v-form>
     </template>
   </bef-login-form-card>
@@ -68,6 +78,12 @@ export default {
       return (response.status === 404)
         ? this.$store.dispatch('getToast', { msg: 'ユーザーが見つかりません。パスワードとメールアドレスを確認してください' })
         : this.$my.errorHandler(response)
+    },
+    async guestLogin () {
+      this.loading = true
+      await this.$axios.$post('/api/v1/login', { auth: { email: 'user0@example.com', password: 'password' } })
+        .then(response => this.authSuccessful(response))
+      this.loading = false
     }
   }
 }
