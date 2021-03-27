@@ -7,6 +7,7 @@ export const state = () => ({
   },
   following: [],
   followers: [],
+  relationship: false,
   eventPosts: [],
   styles: {
     beforeLogin: {
@@ -47,6 +48,9 @@ export const mutations = {
   },
   setEventPosts (state, payload) {
     state.eventPosts = payload
+  },
+  setRelationship (state, payload) {
+    state.relationship = payload
   }
 }
 
@@ -74,5 +78,8 @@ export const actions = {
   },
   getEventPosts ({ commit }, eventPosts) {
     commit('setEventPosts', eventPosts)
+  },
+  getRelationship ({ commit }, boolean) {
+    commit('setRelationship', boolean)
   }
 }
