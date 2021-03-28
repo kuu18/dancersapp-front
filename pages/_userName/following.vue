@@ -50,6 +50,7 @@
 </template>
 <script>
 export default {
+  name: 'UserNameFollowing',
   middleware: 'getUserFollow',
   data ({ $store }) {
     return {

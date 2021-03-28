@@ -84,7 +84,7 @@ export default {
         { name: 'events', icon: 'mdi-view-compact' },
         { name: 'search', icon: 'mdi-image' }
       ],
-      currentUser: this.$store.state.current.user,
+      currentUser: this.$store.state.currentUser.user,
       dialog: false
     }
   },

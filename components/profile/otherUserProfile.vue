@@ -59,7 +59,7 @@
             フォロワー {{ followerCount }}
           </v-btn>
           <v-card-text>
-            投稿数 {{ eventPosts.length }}
+            投稿数 {{ otherUser.eventposts.length }}
           </v-card-text>
         </v-card-text>
         <v-card-actions class="mx-auto hidden-ipad-and-down">
@@ -122,11 +122,17 @@
 export default {
   data ({ $store }) {
     return {
-      eventPosts: $store.state.eventPosts,
-      otherUser: $store.state.other.user,
-      followCount: $store.state.other.user.active_relationships.length,
-      followerCount: $store.state.other.user.passive_relationships.length,
-      loading: false
+      loading: false,
+      followCount: this.$store.state.otherUser.user.active_relationships.length,
+      followerCount: this.$store.state.otherUser.user.passive_relationships.length
+    }
+  },
+  computed: {
+    eventPosts () {
+      return this.$store.state.otherUser.eventPosts
+    },
+    otherUser () {
+      return this.$store.state.otherUser.user
     }
   },
   methods: {

@@ -30,9 +30,13 @@
 </template>
 <script>
 export default {
-  data ({ $store }) {
-    return {
-      eventPosts: $store.state.eventPosts
+  computed: {
+    eventPosts () {
+      if (this.$route.params.userName === this.$auth.user.user_name) {
+        return this.$store.state.currentUser.eventPosts
+      } else {
+        return this.$store.state.otherUser.eventPosts
+      }
     }
   }
 }

@@ -30,7 +30,7 @@ class Authentication {
   }
 
   get user () {
-    return this.store.state.current.user || {}
+    return this.store.state.currentUser.user || {}
   }
 
   isUserPresent () {

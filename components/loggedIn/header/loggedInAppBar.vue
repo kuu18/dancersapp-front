@@ -99,7 +99,7 @@ export default {
         { name: 'settings-password', icon: 'mdi-lock-outline' },
         { name: 'logout', icon: 'mdi-logout-variant', divider: true }
       ],
-      currentUser: this.$store.state.current.user
+      currentUser: this.$store.state.currentUser.user
     }
   }
 }

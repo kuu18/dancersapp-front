@@ -9,7 +9,7 @@
         md="7"
       >
         <v-card
-          v-for="(event, i) in eventPosts"
+          v-for="(feed, i) in feedItems"
           :key="`card-${i}`"
           class="mx-auto my-8"
         >
@@ -17,12 +17,12 @@
             light
             color="white"
           >
-            <v-toolbar-title>{{ event.user.name }}</v-toolbar-title>
+            <v-toolbar-title>{{ feed.user.name }}</v-toolbar-title>
 
             <v-spacer />
 
             <v-menu
-              v-if="event.user.id === $auth.user.id"
+              v-if="feed.user.id === $auth.user.id"
               left
               bottom
             >
@@ -39,7 +39,7 @@
               <v-list>
                 <v-list-item
                   link
-                  @click="destroy(event.id)"
+                  @click="destroy(feed.id)"
                 >
                   <v-list-item-icon>
                     <v-icon>mdi-trash-can-outline</v-icon>
@@ -50,15 +50,15 @@
             </v-menu>
           </v-app-bar>
           <v-img
-            :src="event.image_url"
+            :src="feed.image_url"
           />
 
           <v-card-title>
-            {{ event.event_name }}
+            {{ feed.event_name }}
           </v-card-title>
 
           <v-card-subtitle>
-            {{ dateFormat(event.event_date) }}~
+            {{ dateFormat(feed.event_date) }}~
           </v-card-subtitle>
 
           <v-card-actions>
@@ -102,7 +102,7 @@
               <v-divider />
 
               <v-card-text>
-                {{ event.content }}
+                {{ feed.content }}
               </v-card-text>
             </div>
           </v-expand-transition>
@@ -115,9 +115,12 @@
             />
           </v-card-actions>
           <v-card-text>
-            {{ dateFormat(event.created_at) }}
+            {{ dateFormat(feed.created_at) }}
           </v-card-text>
         </v-card>
+        <infinite-loading
+          @infinite="infiniteHandler"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -125,11 +128,11 @@
 
 <script>
 export default {
+  name: 'Home',
   layout: 'default',
   data ($store) {
     return {
-      show: false,
-      eventPosts: this.$store.state.eventPosts
+      show: false
     }
   },
   computed: {
@@ -140,9 +143,15 @@ export default {
         )
         return dateTimeFormat.format(new Date(date))
       }
+    },
+    feedItems () {
+      return this.$store.state.feedItems
     }
   },
   methods: {
+    infiniteHandler ($state) {
+      this.$store.dispatch('getFeedItems', $state)
+    },
     destroy (eventId) {
       const id = eventId
       this.$axios.$delete('/api/v1/eventposts/' + id)
