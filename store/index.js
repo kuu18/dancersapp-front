@@ -1,17 +1,21 @@
 export const state = () => ({
   currentUser: {
     user: null,
-    eventPosts: null
+    eventPosts: []
   },
   otherUser: {
     user: null,
-    eventPosts: null
+    eventPosts: []
   },
   following: [],
   followers: [],
   relationship: false,
   feedItems: [],
-  page: 1,
+  page: {
+    feedPage: 1,
+    userPage: 1,
+    otherUserPage: 1
+  },
   styles: {
     beforeLogin: {
       appBarHeight: 56
@@ -52,17 +56,28 @@ export const mutations = {
   setRelationship (state, payload) {
     state.relationship = payload
   },
-  setUserEventPosts (state, payload) {
-    state.currentUser.eventPosts = payload
+  updateUserEventPosts (state, payload) {
+    state.currentUser.eventPosts.push(...payload)
   },
-  setOtherUserEventPosts (state, payload) {
-    state.otherUser.eventPosts = payload
+  updateOtherUserEventPosts (state, payload) {
+    state.otherUser.eventPosts.push(...payload)
   },
-  incrementPage (state) {
-    state.page++
+  incrementFeedPage (state) {
+    state.page.feedPage++
+  },
+  incrementUserPage (state) {
+    state.page.userPage++
+  },
+  incrementOtherUserPage (state) {
+    state.page.otherUserPage++
   },
   updateFeedItems (state, payload) {
     state.feedItems.push(...payload)
+  },
+  setInfiniteReset (state) {
+    state.currentUser.eventPosts = []
+    state.otherUser.eventPosts = []
+    state.page.userPage = 1
   }
 }
 
@@ -91,20 +106,48 @@ export const actions = {
   getRelationship ({ commit }, boolean) {
     commit('setRelationship', boolean)
   },
-  getUserEventPosts ({ commit }, userEventPosts) {
-    commit('setUserEventPosts', userEventPosts)
+  getInfiniteReset ({ commit }) {
+    commit('setInfiniteReset')
   },
-  getOtherUserEventPosts ({ commit }, otherUserEventPosts) {
-    commit('setOtherUserEventPosts', otherUserEventPosts)
+  async getOtherUserEventPosts ({ commit, state }, loadState) {
+    await this.$axios.$get('/api/v1/eventposts/current_user', {
+      params: {
+        page: state.page.userPage,
+        user_name: loadState.params
+      }
+    }).then(function (data) {
+      if (state.page.userPage <= data.kaminari.pagenation.pages) {
+        commit('incrementUserPage')
+        commit('updateOtherUserEventPosts', data.eventposts)
+        loadState.$state.loaded()
+      } else {
+        loadState.$state.complete()
+      }
+    })
+  },
+  async getUserEventPosts ({ commit, state }, loadState) {
+    await this.$axios.$get('/api/v1/eventposts/current_user', {
+      params: {
+        page: state.page.userPage
+      }
+    }).then(function (data) {
+      if (state.page.userPage <= data.kaminari.pagenation.pages) {
+        commit('incrementUserPage')
+        commit('updateUserEventPosts', data.eventposts)
+        loadState.loaded()
+      } else {
+        loadState.complete()
+      }
+    })
   },
   async getFeedItems ({ commit, state }, loadState) {
     await this.$axios.$get('/api/v1/eventposts', {
       params: {
-        page: state.page
+        page: state.page.feedPage
       }
     }).then(function (data) {
-      if (state.page <= data.kaminari.pagenation.pages) {
-        commit('incrementPage')
+      if (state.page.feedPage <= data.kaminari.pagenation.pages) {
+        commit('incrementOtherUserPage')
         commit('updateFeedItems', data.feed_items)
         loadState.loaded()
       } else {

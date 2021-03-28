@@ -132,8 +132,7 @@ export default {
   layout: 'default',
   data ($store) {
     return {
-      show: false,
-      page: 2
+      show: false
     }
   },
   computed: {

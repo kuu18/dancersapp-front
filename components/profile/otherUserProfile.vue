@@ -59,7 +59,7 @@
             フォロワー {{ followerCount }}
           </v-btn>
           <v-card-text>
-            投稿数 {{ eventPosts.length }}
+            投稿数 {{ otherUser.eventposts.length }}
           </v-card-text>
         </v-card-text>
         <v-card-actions class="mx-auto hidden-ipad-and-down">

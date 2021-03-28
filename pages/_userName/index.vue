@@ -38,13 +38,30 @@
         cols="10"
       >
         <profile-eventposts />
+        <infinite-loading
+          @infinite="infiniteHandler"
+        />
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
 export default {
+  name: 'UserName',
   layout: 'loggedIn',
-  middleware: ['getUserEventPosts', 'getOtherUser']
+  middleware: 'getOtherUser',
+  destroyed () {
+    this.$store.dispatch('getInfiniteReset')
+  },
+  methods: {
+    infiniteHandler ($state) {
+      if (this.$route.params.userName === this.$auth.user.user_name) {
+        this.$store.dispatch('getUserEventPosts', $state)
+      } else {
+        const params = this.$route.params.userName
+        this.$store.dispatch('getOtherUserEventPosts', { $state, params })
+      }
+    }
+  }
 }
 </script>

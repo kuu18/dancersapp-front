@@ -105,7 +105,7 @@
 export default {
   computed: {
     eventCount () {
-      return this.$store.state.currentUser.eventPosts.length
+      return this.$store.state.currentUser.user.eventposts.length
     }
   }
 }
