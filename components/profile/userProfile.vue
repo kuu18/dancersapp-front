@@ -103,9 +103,9 @@
 </template>
 <script>
 export default {
-  data ({ $store }) {
-    return {
-      eventCount: $store.state.eventPosts.length
+  computed: {
+    eventCount () {
+      return this.$store.state.currentUser.eventPosts.length
     }
   }
 }

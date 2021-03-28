@@ -29,7 +29,8 @@ export default {
     'plugins/axios',
     'plugins/localStorage',
     'plugins/myInject',
-    'plugins/nuxtClientInit'
+    'plugins/nuxtClientInit',
+    'plugins/infiniteloading'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

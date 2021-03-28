@@ -10,6 +10,6 @@
 <script>
 export default {
   name: 'Default',
-  middleware: ['authenticator', 'getEventPosts']
+  middleware: 'authenticator'
 }
 </script>
