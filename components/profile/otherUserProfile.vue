@@ -123,7 +123,7 @@ export default {
       loading: false,
       followCount: this.$store.state.otherUser.user.active_relationships.length,
       followerCount: this.$store.state.otherUser.user.passive_relationships.length,
-      avatarUrl: this.$auth.user.avatar_url
+      avatarUrl: this.$store.state.otherUser.user.avatar_url
     }
   },
   computed: {
