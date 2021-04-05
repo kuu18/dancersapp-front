@@ -23,8 +23,7 @@
             class="hidden-ipad-and-down"
           >
             <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
-              alt="John"
+              :src="avatarUrl"
             >
           </v-avatar>
           <v-avatar
@@ -32,8 +31,7 @@
             class="hidden-ipad-and-up"
           >
             <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
-              alt="John"
+              :src="avatarUrl"
             >
           </v-avatar>
         </v-layout>
@@ -124,7 +122,8 @@ export default {
     return {
       loading: false,
       followCount: this.$store.state.otherUser.user.active_relationships.length,
-      followerCount: this.$store.state.otherUser.user.passive_relationships.length
+      followerCount: this.$store.state.otherUser.user.passive_relationships.length,
+      avatarUrl: this.$store.state.otherUser.user.avatar_url
     }
   },
   computed: {

@@ -13,14 +13,9 @@
             >
               <template #default="{ item }">
                 <v-list-item :key="`foolowers-${item}`">
-                  <v-list-item-action>
-                    <v-btn
-                      fab
-                      small
-                      depressed
-                      color="primary"
-                    />
-                  </v-list-item-action>
+                  <v-list-item-avatar>
+                    <img :src="item.avatar_url">
+                  </v-list-item-avatar>
 
                   <v-list-item-content>
                     <v-list-item-title>

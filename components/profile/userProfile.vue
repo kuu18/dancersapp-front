@@ -23,7 +23,7 @@
             class="hidden-ipad-and-down"
           >
             <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
+              :src="avatarUrl"
               alt="John"
             >
           </v-avatar>
@@ -32,7 +32,7 @@
             class="hidden-ipad-and-up"
           >
             <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
+              :src="avatarUrl"
               alt="John"
             >
           </v-avatar>
@@ -103,6 +103,11 @@
 </template>
 <script>
 export default {
+  data () {
+    return {
+      avatarUrl: this.$auth.user.avatar_url
+    }
+  },
   computed: {
     eventCount () {
       return this.$store.state.currentUser.user.eventposts.length

@@ -30,8 +30,7 @@
                 size="90"
               >
                 <img
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  alt="John"
+                  :src="avatarUrl"
                 >
               </v-avatar>
             </v-layout>
@@ -40,15 +39,17 @@
             <v-card-text>
               <h3>{{ $auth.user.user_name }}</h3>
             </v-card-text>
-            <v-card-actions>
-              <v-btn
-                text
-                to="#"
-                color="primary"
-              >
-                プロフィール写真を変更
-              </v-btn>
-            </v-card-actions>
+            <v-btn
+              text
+              color="primary"
+              @click="dialog = !dialog"
+            >
+              プロフィール写真を変更
+            </v-btn>
+            <user-avatar-dialog
+              :dialog.sync="dialog"
+              @change-dialog="changeDialog"
+            />
           </v-col>
         </v-row>
         <v-row
@@ -103,6 +104,8 @@ export default {
       isValid: false,
       loading: false,
       change: false,
+      dialog: false,
+      avatarUrl: this.$auth.user.avatar_url,
       params: { user: { name: `${$auth.user.name}`, user_name: `${$auth.user.user_name}` } }
     }
   },
@@ -126,6 +129,9 @@ export default {
     succeeded ({ msg, type }) {
       this.$store.dispatch('getToast', { msg, color: type })
       this.$router.go()
+    },
+    changeDialog () {
+      this.dialog = !(this.dialog)
     }
   }
 }
