@@ -12,9 +12,9 @@ export const state = () => ({
   relationship: false,
   feedItems: [],
   page: {
-    feedPage: 1,
-    userPage: 1,
-    otherUserPage: 1
+    feedPage: 2,
+    userPage: 2,
+    otherUserPage: 2
   },
   styles: {
     beforeLogin: {
@@ -56,6 +56,9 @@ export const mutations = {
   setRelationship (state, payload) {
     state.relationship = payload
   },
+  setInitialFeedItems (state, payload) {
+    state.feedItems = payload
+  },
   updateUserEventPosts (state, payload) {
     state.currentUser.eventPosts.push(...payload)
   },
@@ -77,7 +80,7 @@ export const mutations = {
   setInfiniteReset (state) {
     state.currentUser.eventPosts = []
     state.otherUser.eventPosts = []
-    state.page.userPage = 1
+    state.page.userPage = 2
   }
 }
 
@@ -105,6 +108,9 @@ export const actions = {
   },
   getRelationship ({ commit }, boolean) {
     commit('setRelationship', boolean)
+  },
+  getInitialFeedItems ({ commit }, feedItems) {
+    commit('setInitialFeedItems', feedItems)
   },
   getInfiniteReset ({ commit }) {
     commit('setInfiniteReset')

@@ -130,6 +130,7 @@
 export default {
   name: 'Home',
   layout: 'default',
+  middleware: 'getInitialFeedItems',
   data ($store) {
     return {
       show: false
