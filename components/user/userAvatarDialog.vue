@@ -30,17 +30,17 @@
         </v-btn>
       </v-card-actions>
       <v-divider />
-        <v-card-title>写真の削除</v-card-title>
-        <v-card-actions>
-          <v-btn
-            block
-            color="error"
-            :loading="deleteLoading"
-            @click="avatarDelete"
-          >
-            現在のプロフィール写真を削除
-          </v-btn>
-        </v-card-actions>
+      <v-card-title>写真の削除</v-card-title>
+      <v-card-actions>
+        <v-btn
+          block
+          color="error"
+          :loading="deleteLoading"
+          @click="avatarDelete"
+        >
+          現在のプロフィール写真を削除
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
