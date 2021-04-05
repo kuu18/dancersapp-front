@@ -8,7 +8,7 @@
     <v-list>
       <v-list-item class="px-2">
         <v-list-item-avatar>
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
+          <img :src="avatarUrl">
         </v-list-item-avatar>
       </v-list-item>
 
@@ -85,7 +85,8 @@ export default {
         { name: 'search', icon: 'mdi-image' }
       ],
       currentUser: this.$store.state.currentUser.user,
-      dialog: false
+      dialog: false,
+      avatarUrl: this.$auth.user.avatar_url
     }
   },
   computed: {
