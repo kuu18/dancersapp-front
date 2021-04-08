@@ -59,6 +59,15 @@ export const mutations = {
   setInitialFeedItems (state, payload) {
     state.feedItems = payload
   },
+  setInitialUserEventPosts (state, payload) {
+    state.currentUser.eventPosts = payload
+  },
+  setInitialOtherUserEventPosts (state, payload) {
+    state.otherUser.eventPosts = payload
+  },
+  updateFeedItems (state, payload) {
+    state.feedItems.push(...payload)
+  },
   updateUserEventPosts (state, payload) {
     state.currentUser.eventPosts.push(...payload)
   },
@@ -73,9 +82,6 @@ export const mutations = {
   },
   incrementOtherUserPage (state) {
     state.page.otherUserPage++
-  },
-  updateFeedItems (state, payload) {
-    state.feedItems.push(...payload)
   },
   setInfiniteReset (state) {
     state.currentUser.eventPosts = []
@@ -111,6 +117,12 @@ export const actions = {
   },
   getInitialFeedItems ({ commit }, feedItems) {
     commit('setInitialFeedItems', feedItems)
+  },
+  getInitialUserEventPosts ({ commit }, eventposts) {
+    commit('setInitialUserEventPosts', eventposts)
+  },
+  getInitialOtherUserEventPosts ({ commit }, eventposts) {
+    commit('setInitialOtherUserEventPosts', eventposts)
   },
   getInfiniteReset ({ commit }) {
     commit('setInfiniteReset')

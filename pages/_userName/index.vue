@@ -49,7 +49,7 @@
 export default {
   name: 'UserName',
   layout: 'loggedIn',
-  middleware: 'getOtherUser',
+  middleware: ['getOtherUser', 'getInitialEventPosts'],
   destroyed () {
     this.$store.dispatch('getInfiniteReset')
   },
