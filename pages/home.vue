@@ -70,14 +70,7 @@
                 mdi-comment-outline
               </v-icon>
             </v-btn>
-            <v-btn
-              color="orange lighten-2"
-              text
-            >
-              <v-icon>
-                mdi-heart
-              </v-icon>
-            </v-btn>
+            <ui-like-btn :eventpost-id="feed.id" />
             <v-btn
               color="orange lighten-2"
               text
@@ -127,8 +120,10 @@
 </template>
 
 <script>
+import uiLikeBtn from '../components/ui/uiLikeBtn.vue'
 export default {
   name: 'Home',
+  components: { uiLikeBtn },
   layout: 'default',
   middleware: 'getInitialFeedItems',
   data ($store) {
