@@ -6,25 +6,27 @@
       class="d-flex child-flex"
       cols="4"
     >
-      <v-img
-        :src="eventPost.image_url"
-        :lazy-src="eventPost.image_url"
-        aspect-ratio="1"
-        class="grey lighten-2"
-      >
-        <template #placeholder>
-          <v-row
-            class="fill-height ma-0"
-            align="center"
-            justify="center"
-          >
-            <v-progress-circular
-              indeterminate
-              color="grey lighten-5"
-            />
-          </v-row>
-        </template>
-      </v-img>
+      <nuxt-link :to="`/eventpost/${eventPost.id}`">
+        <v-img
+          :src="eventPost.image_url"
+          :lazy-src="eventPost.image_url"
+          aspect-ratio="1"
+          class="grey lighten-2"
+        >
+          <template #placeholder>
+            <v-row
+              class="fill-height ma-0"
+              align="center"
+              justify="center"
+            >
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              />
+            </v-row>
+          </template>
+        </v-img>
+      </nuxt-link>
     </v-col>
   </v-row>
 </template>

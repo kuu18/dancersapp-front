@@ -13,45 +13,12 @@
           :key="`card-${i}`"
           class="mx-auto my-8"
         >
-          <v-app-bar
-            light
-            color="white"
-          >
-            <v-toolbar-title>{{ feed.user.name }}</v-toolbar-title>
-
-            <v-spacer />
-
-            <v-menu
-              v-if="feed.user.id === $auth.user.id"
-              left
-              bottom
-            >
-              <template #activator="{ on, attrs }">
-                <v-btn
-                  icon
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-              </template>
-
-              <v-list>
-                <v-list-item
-                  link
-                  @click="destroy(feed.id)"
-                >
-                  <v-list-item-icon>
-                    <v-icon>mdi-trash-can-outline</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-title>削除</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-app-bar>
-          <v-img
-            :src="feed.image_url"
-          />
+          <eventposts-card-app-bar :item="feed" />
+          <nuxt-link :to="`/eventpost/${feed.id}`">
+            <v-img
+              :src="feed.image_url"
+            />
+          </nuxt-link>
 
           <v-card-title>
             {{ feed.event_name }}
@@ -64,16 +31,19 @@
           <v-card-actions>
             <v-btn
               color="orange lighten-2"
-              text
+              icon
+              link
+              :to="`/eventpost/${feed.id}`"
             >
               <v-icon>
                 mdi-comment-outline
               </v-icon>
+              {{ feed.comments.length }}
             </v-btn>
-            <ui-like-btn :eventpost-id="feed.id" />
+            <eventposts-card-like-btn :eventpost-id="feed.id" />
             <v-btn
               color="orange lighten-2"
-              text
+              icon
             >
               <v-icon>
                 mdi-bookmark-plus-outline
@@ -81,7 +51,9 @@
             </v-btn>
 
             <v-spacer />
-
+            <p class="mb-0">
+              イベント概要を表示
+            </p>
             <v-btn
               icon
               @click="show = !show"
@@ -89,7 +61,6 @@
               <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
             </v-btn>
           </v-card-actions>
-
           <v-expand-transition>
             <div v-show="show">
               <v-divider />
@@ -99,14 +70,12 @@
               </v-card-text>
             </div>
           </v-expand-transition>
-          <v-card-actions>
-            <v-textarea
-              class="mx-2"
-              label="コメント"
-              rows="1"
-              prepend-icon="mdi-comment-outline"
-            />
-          </v-card-actions>
+          <v-card-text v-if="feed.comments.length !== 0">
+            <nuxt-link :to="`/eventpost/${feed.id}`" class="text-decoration-none">
+              {{ feed.comments.length }}件のコメントをみる
+            </nuxt-link>
+          </v-card-text>
+          <eventposts-card-comment-form :eventpost-id="feed.id" />
           <v-card-text>
             {{ dateFormat(feed.created_at) }}
           </v-card-text>
@@ -120,13 +89,11 @@
 </template>
 
 <script>
-import uiLikeBtn from '../components/ui/uiLikeBtn.vue'
 export default {
   name: 'Home',
-  components: { uiLikeBtn },
   layout: 'default',
   middleware: 'getInitialFeedItems',
-  data ($store) {
+  data () {
     return {
       show: false
     }
@@ -147,15 +114,6 @@ export default {
   methods: {
     infiniteHandler ($state) {
       this.$store.dispatch('getFeedItems', $state)
-    },
-    destroy (eventId) {
-      const id = eventId
-      this.$axios.$delete('/api/v1/eventposts/' + id)
-        .then(response => this.succeeded(response))
-    },
-    succeeded ({ msg, type }) {
-      this.$store.dispatch('getToast', { msg, color: type })
-      this.$router.go()
     }
   }
 }

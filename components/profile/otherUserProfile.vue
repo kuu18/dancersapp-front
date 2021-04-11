@@ -60,57 +60,7 @@
             投稿数 {{ otherUser.eventposts.length }}
           </v-card-text>
         </v-card-text>
-        <v-card-actions class="mx-auto hidden-ipad-and-down">
-          <v-btn
-            v-if="$store.state.relationship === false"
-            rounded
-            color="primary"
-            :loading="loading"
-            @click="follow"
-          >
-            フォローする
-            <v-icon>
-              mdi-account
-            </v-icon>
-          </v-btn>
-          <v-btn
-            v-if="$store.state.relationship === true"
-            outlined
-            :loading="loading"
-            @click="unfollow"
-          >
-            フォロー解除
-            <v-icon>
-              mdi-account-check
-            </v-icon>
-          </v-btn>
-        </v-card-actions>
-        <v-card-actions class="hidden-ipad-and-up">
-          <v-btn
-            v-if="$store.state.relationship === false"
-            block
-            color="primary"
-            :loading="loading"
-            @click="follow"
-          >
-            フォローする
-            <v-icon>
-              mdi-account
-            </v-icon>
-          </v-btn>
-          <v-btn
-            v-if="$store.state.relationship === true"
-            block
-            outlined
-            :loading="loading"
-            @click="unfollow"
-          >
-            フォロー解除
-            <v-icon>
-              mdi-account
-            </v-icon>
-          </v-btn>
-        </v-card-actions>
+        <ui-follow-btn @countup="incrementFollowerCount" @countdown="decrementFollowerCount" />
       </v-col>
     </v-row>
     <v-divider class="mt-3" />
@@ -118,12 +68,11 @@
 </template>
 <script>
 export default {
-  data ({ $store }) {
+  data () {
     return {
       loading: false,
       followCount: this.$store.state.otherUser.user.active_relationships.length,
-      followerCount: this.$store.state.otherUser.user.passive_relationships.length,
-      avatarUrl: this.$store.state.otherUser.user.avatar_url
+      followerCount: this.$store.state.otherUser.user.passive_relationships.length
     }
   },
   computed: {
@@ -132,27 +81,16 @@ export default {
     },
     otherUser () {
       return this.$store.state.otherUser.user
+    },
+    avatarUrl () {
+      return this.$store.state.otherUser.user.avatar_url
     }
   },
   methods: {
-    async follow () {
-      this.loading = true
-      await this.$axios.$post('/api/v1/relationships', { user_name: this.otherUser.user_name })
-        .then(response => this.followSuccessful(response))
-      this.loading = false
-    },
-    followSuccessful (response) {
-      this.$store.dispatch('getRelationship', response)
+    incrementFollowerCount () {
       this.followerCount += 1
     },
-    async unfollow () {
-      this.loading = true
-      await this.$axios.$delete('/api/v1/relationships', { data: { user_name: this.otherUser.user_name } })
-        .then(response => this.unfollowSuccessful(response))
-      this.loading = false
-    },
-    unfollowSuccessful (response) {
-      this.$store.dispatch('getRelationship', response)
+    decrementFollowerCount () {
       this.followerCount -= 1
     }
   }

@@ -128,7 +128,7 @@ export const actions = {
     commit('setInfiniteReset')
   },
   async getOtherUserEventPosts ({ commit, state }, loadState) {
-    await this.$axios.$get('/api/v1/eventposts/current_user', {
+    await this.$axios.$get('/api/v1/eventposts/user_eventposts', {
       params: {
         page: state.page.userPage,
         user_name: loadState.params
@@ -144,7 +144,7 @@ export const actions = {
     })
   },
   async getUserEventPosts ({ commit, state }, loadState) {
-    await this.$axios.$get('/api/v1/eventposts/current_user', {
+    await this.$axios.$get('/api/v1/eventposts/user_eventposts', {
       params: {
         page: state.page.userPage
       }

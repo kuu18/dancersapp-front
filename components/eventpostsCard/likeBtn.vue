@@ -3,22 +3,24 @@
     <v-btn
       v-if="isLiked"
       color="orange lighten-2"
-      text
+      icon
       @click="unlike"
     >
       <v-icon>
         mdi-heart
       </v-icon>
+      {{ count }}
     </v-btn>
     <v-btn
       v-else
       color="orange lighten-2"
-      text
+      icon
       @click="like"
     >
       <v-icon>
         mdi-heart-outline
       </v-icon>
+      {{ count }}
     </v-btn>
   </div>
 </template>
