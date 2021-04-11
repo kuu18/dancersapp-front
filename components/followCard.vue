@@ -8,9 +8,9 @@
         cols="12"
         md="8"
       >
-        <v-card>
+        <v-card flat>
           <v-toolbar
-            color="deep-purple accent-4"
+            color="myred"
             dark
             flat
           >
@@ -21,43 +21,58 @@
             <v-btn icon>
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
-
-            <template #extension>
-              <v-tabs>
-                <v-tab
-                  v-for="(item, i) in items"
-                  :key="`item-tab-${i}`"
-                  nuxt
-                  :to="{name: item.title}"
-                >
-                  <v-icon left>
-                    {{ item.icon }}
-                  </v-icon>
-                  {{ $my.pageTitle(item.title) }}
-                </v-tab>
-
-                <v-tabs-items>
-                  <v-card class="mx-auto">
-                    <slot name="follow-card-content" />
-                  </v-card>
-                </v-tabs-items>
-              </v-tabs>
-            </template>
           </v-toolbar>
+          <v-tabs color="myred">
+            <v-tab
+              v-for="(item, i) in items"
+              :key="`item-tab-${i}`"
+              nuxt
+              :to="{name: item.title}"
+            >
+              <v-icon left>
+                {{ item.icon }}
+              </v-icon>
+              {{ $my.pageTitle(item.title) }}
+            </v-tab>
+
+            <v-tabs-items>
+              <v-card>
+                <slot name="follow-card-content" />
+              </v-card>
+            </v-tabs-items>
+          </v-tabs>
         </v-card>
+        <infinite-loading
+          @infinite="infiniteHandler"
+        />
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
 export default {
-  data ({ $route, $my }) {
+  data ({ $route }) {
     return {
       items: [
         { title: 'userName-following', icon: 'mdi-account-arrow-right-outline' },
         { title: 'userName-followers', icon: 'mdi-account-arrow-left-outline' }
       ],
       pageTitle: this.$my.pageTitle($route.name)
+    }
+  },
+  destroyed () {
+    this.$store.dispatch('getInfiniteReset')
+  },
+  methods: {
+    infiniteHandler ($state) {
+      console.log(this.$route.params.userName)
+      if (this.$route.name === 'userName-following') {
+        const params = this.$route.params.userName
+        this.$store.dispatch('getUserFollowing', { $state, params })
+      } else {
+        const params = this.$route.params.userName
+        this.$store.dispatch('getUserFollowers', { $state, params })
+      }
     }
   }
 }

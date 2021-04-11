@@ -14,7 +14,7 @@ export const state = () => ({
   page: {
     feedPage: 2,
     userPage: 2,
-    otherUserPage: 2
+    followPage: 2
   },
   styles: {
     beforeLogin: {
@@ -41,10 +41,10 @@ export const mutations = {
   setOtherUser (state, payload) {
     state.otherUser.user = payload
   },
-  setUserFollowing (state, payload) {
+  setInitialUserFollowing (state, payload) {
     state.following = payload
   },
-  setUserFollowers (state, payload) {
+  setInitialUserFollowers (state, payload) {
     state.followers = payload
   },
   setRememberRoute (state, payload) {
@@ -74,19 +74,24 @@ export const mutations = {
   updateOtherUserEventPosts (state, payload) {
     state.otherUser.eventPosts.push(...payload)
   },
+  updateFollowing (state, payload) {
+    state.following.push(...payload)
+  },
+  updateFollowers (state, payload) {
+    state.followers.push(...payload)
+  },
   incrementFeedPage (state) {
     state.page.feedPage++
   },
   incrementUserPage (state) {
     state.page.userPage++
   },
-  incrementOtherUserPage (state) {
-    state.page.otherUserPage++
+  incrementFollowPage (state) {
+    state.page.followPage++
   },
   setInfiniteReset (state) {
-    state.currentUser.eventPosts = []
-    state.otherUser.eventPosts = []
     state.page.userPage = 2
+    state.page.followPage = 2
   }
 }
 
@@ -97,11 +102,11 @@ export const actions = {
   getOtherUser ({ commit }, user) {
     commit('setOtherUser', user)
   },
-  getUserFollowing ({ commit }, user) {
-    commit('setUserFollowing', user)
+  getInitialUserFollowing ({ commit }, user) {
+    commit('setInitialUserFollowing', user)
   },
-  getUserFollowers ({ commit }, user) {
-    commit('setUserFollowers', user)
+  getInitialUserFollowers ({ commit }, user) {
+    commit('setInitialUserFollowers', user)
   },
   getRememberRoute ({ commit }, route) {
     route = route || { name: 'home', params: {} }
@@ -165,11 +170,43 @@ export const actions = {
       }
     }).then(function (data) {
       if (state.page.feedPage <= data.kaminari.pagenation.pages) {
-        commit('incrementOtherUserPage')
+        commit('incrementFeedPage')
         commit('updateFeedItems', data.feed_items)
         loadState.loaded()
       } else {
         loadState.complete()
+      }
+    })
+  },
+  async getUserFollowing ({ commit, state }, loadState) {
+    await this.$axios.$get('/api/v1/users/following', {
+      params: {
+        page: state.page.followPage,
+        user_name: loadState.params
+      }
+    }).then(function (data) {
+      if (state.page.followPage <= data.kaminari.pagenation.pages) {
+        commit('incrementFollowPage')
+        commit('updateFollowing', data.following)
+        loadState.$state.loaded()
+      } else {
+        loadState.$state.complete()
+      }
+    })
+  },
+  async getUserFollowers ({ commit, state }, loadState) {
+    await this.$axios.$get('/api/v1/users/following', {
+      params: {
+        page: state.page.followPage,
+        user_name: loadState.params
+      }
+    }).then(function (data) {
+      if (state.page.followPage <= data.kaminari.pagenation.pages) {
+        commit('incrementFollowPage')
+        commit('updateFollowers', data.following)
+        loadState.$state.loaded()
+      } else {
+        loadState.$state.complete()
       }
     })
   }
