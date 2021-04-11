@@ -145,7 +145,7 @@ export default {
       if (type === 'success') {
         this.$emit('change-dialog')
         this.$store.dispatch('getToast', { msg, color: type })
-        this.$router.go()
+        this.$router.go('/home')
       } else if (type === 'error') {
         this.errors = errors
         this.$store.dispatch('getToast', { msg: errors, color: type })
