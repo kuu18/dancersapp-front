@@ -6,68 +6,19 @@
         justify="center"
         align="center"
       >
-        <v-col cols="12" md="10" class="my-10 text-center">
+        <v-col cols="12" md="8" class="my-10 text-center">
           <v-card
             class="mx-auto"
           >
             <v-row>
-              <v-col cols="12" sm="6">
+              <v-col cols="12">
+                <eventposts-card-app-bar :item="eventpost" />
                 <v-card-title>
                   {{ eventpost.event_name }}
                 </v-card-title>
                 <v-img
-                  max-height="700"
                   :src="eventpost.image_url"
                 />
-              </v-col>
-              <v-col cols="12" sm="6">
-                <eventposts-card-app-bar :item="eventpost" />
-                <v-container fluid>
-                  <v-row>
-                    <v-col
-                      cols="12"
-                    >
-                      <v-virtual-scroll
-                        :bench="benched"
-                        :items="items"
-                        height="500"
-                        item-height="80"
-                      >
-                        <template #default="{ item }">
-                          <v-list-item :key="`comment-${item}`">
-                            <v-list-item-action>
-                              <nuxt-link
-                                :to="`/${item.user.user_name}`"
-                                class="text-decoration-none"
-                              >
-                                <v-list-item-avatar>
-                                  <img
-                                    :src="item.user.avatar_url"
-                                  >
-                                </v-list-item-avatar>
-                              </nuxt-link>
-                            </v-list-item-action>
-
-                            <v-list-item-content>
-                              {{ item.content }}
-                            </v-list-item-content>
-
-                            <v-list-item-action v-if="$auth.user.user_name === item.user.user_name">
-                              <v-btn icon @click="commentDelete(item.id)">
-                                <v-icon small>
-                                  mdi-bucket-outline
-                                </v-icon>
-                              </v-btn>
-                            </v-list-item-action>
-                          </v-list-item>
-                          <v-divider />
-                        </template>
-                      </v-virtual-scroll>
-                      <v-card-text>{{ eventpost.comments.length }}件のコメント</v-card-text>
-                      <eventposts-card-comment-form :eventpost-id="eventpost.id" />
-                    </v-col>
-                  </v-row>
-                </v-container>
               </v-col>
             </v-row>
             <v-row>
@@ -88,6 +39,50 @@
                   <v-spacer />
                   <p>{{ dateFormat(eventpost.created_at) }}</p>
                 </v-card-actions>
+              </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12">
+                      <v-app-bar flat color="white">
+                        <v-app-bar-title v-text="`コメント`" class="text-center" />
+                      </v-app-bar>
+                      <v-list-item
+                        v-for="(item, i) in eventpost.comments"
+                        :key="`following-item-${i}`"
+                        :to="`/${item.user.user_name}`"
+                        link
+                      >
+                        <v-list-item-action>
+                          <nuxt-link
+                            :to="`/${item.user.user_name}`"
+                            class="text-decoration-none"
+                          >
+                            <v-list-item-avatar>
+                              <img
+                                :src="item.user.avatar_url"
+                              >
+                            </v-list-item-avatar>
+                          </nuxt-link>
+                        </v-list-item-action>
+
+                        <v-list-item-content class="text-left">
+                          <v-list-item-subtitle v-text="`@${item.user.user_name}`" />
+                          <p class="my-comment">
+                            {{ item.content }}
+                          </p>
+                        </v-list-item-content>
+
+                        <v-list-item-action v-if="$auth.user.user_name === item.user.user_name">
+                          <v-btn icon @click="commentDelete(item.id)">
+                            <v-icon small>
+                              mdi-bucket-outline
+                            </v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                      </v-list-item>
+                      <v-divider />
+                      <v-card-text>{{ eventpost.comments.length }}件のコメント</v-card-text>
+                      <eventposts-card-comment-form :eventpost-id="eventpost.id" />
               </v-col>
             </v-row>
           </v-card>
@@ -132,5 +127,9 @@ export default {
 <style lang="scss" scoped>
 .my-avatar {
   margin-right: 8px;
+}
+.my-comment {
+  padding-top: 5px;
+  font-size: 14px;
 }
 </style>

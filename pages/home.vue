@@ -30,7 +30,7 @@
 
           <v-card-actions>
             <v-btn
-              color="orange lighten-2"
+              color="primary"
               icon
               link
               :to="`/eventpost/${feed.id}`"

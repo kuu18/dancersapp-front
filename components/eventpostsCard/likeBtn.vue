@@ -2,7 +2,7 @@
   <div>
     <v-btn
       v-if="isLiked"
-      color="orange lighten-2"
+      color="error"
       icon
       @click="unlike"
     >
@@ -13,7 +13,7 @@
     </v-btn>
     <v-btn
       v-else
-      color="orange lighten-2"
+      color="gray-liten"
       icon
       @click="like"
     >

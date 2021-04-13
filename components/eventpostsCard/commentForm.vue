@@ -16,7 +16,7 @@
         :disabled="!isValid || loading"
         :loading="loading"
         text
-        color="orange lighten-2"
+        color="primary"
         @click="comment"
       >
         投稿する
