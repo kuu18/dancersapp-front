@@ -43,28 +43,29 @@
       <v-divider />
     </v-list>
     <template #append>
-      <v-tooltip right>
-        <template #activator="{ on, attrs }">
+      <v-dialog
+        v-model="dialog"
+        persistent
+        max-width="1000"
+      >
+        <template #activator="{ on }">
           <v-btn
             class="mx-2"
             color="primary"
             fab
             dark
-            v-bind="attrs"
             v-on="on"
-            @click="dialog = !dialog"
           >
             <v-icon dark>
               mdi-plus
             </v-icon>
           </v-btn>
-          <eventposts-dialog
-            :dialog.sync="dialog"
-            @change-dialog="changeDialog"
-          />
         </template>
-        <span>投稿する</span>
-      </v-tooltip>
+        <eventposts-dialog-card
+          @change-dialog="changeDialog"
+        />
+      </v-dialog>
+      <span>投稿する</span>
     </template>
   </v-navigation-drawer>
 </template>
@@ -81,8 +82,8 @@ export default {
     return {
       navMenus: [
         { name: 'home', icon: 'mdi-home' },
-        { name: 'events', icon: 'mdi-view-compact' },
-        { name: 'search', icon: 'mdi-image' }
+        { name: 'schedules', icon: 'mdi-calendar-clock' },
+        { name: 'search', icon: 'mdi-magnify' }
       ],
       currentUser: this.$store.state.currentUser.user,
       dialog: false,

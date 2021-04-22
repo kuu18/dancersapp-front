@@ -58,7 +58,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     credentials: true,
-    baseURL: process.env.NODE_ENV === "production" ? "https://back.dancersapp.site" : "http://localhost:3000"
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://back.dancersapp.site' : 'http://localhost:3000'
   },
 
   vuetify: {
