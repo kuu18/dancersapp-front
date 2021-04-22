@@ -29,7 +29,8 @@ export const state = () => ({
     msg: null,
     color: 'error',
     timeout: 4000
-  }
+  },
+  schedules: []
 })
 
 export const getters = {}
@@ -46,6 +47,9 @@ export const mutations = {
   },
   setInitialUserFollowers (state, payload) {
     state.followers = payload
+  },
+  setSchedules (state, payload) {
+    state.schedules = payload
   },
   setRememberRoute (state, payload) {
     state.rememberRoute = payload
@@ -107,6 +111,9 @@ export const actions = {
   },
   getInitialUserFollowers ({ commit }, user) {
     commit('setInitialUserFollowers', user)
+  },
+  getSchedules ({ commit }, event) {
+    commit('setSchedules', event)
   },
   getRememberRoute ({ commit }, route) {
     route = route || { name: 'home', params: {} }

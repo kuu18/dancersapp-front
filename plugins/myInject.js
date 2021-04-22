@@ -10,6 +10,13 @@ class MyInject {
     return (typeof (title) === 'object') ? title.index : title
   }
 
+  format (date) {
+    const dateTimeFormat = new Intl.DateTimeFormat(
+      'ja', { dateStyle: 'medium', timeStyle: 'short' }
+    )
+    return dateTimeFormat.format(new Date(date))
+  }
+
   homeLinkTo (name = 'profile') {
     return { name }
   }

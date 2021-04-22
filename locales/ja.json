@@ -9,7 +9,7 @@
     "login": "ログイン",
     "logout": "ログアウト",
     "profile": "プロフィール",
-    "events": "イベント",
+    "schedules": "イベントスケジュール",
     "search": "探す",
     "password": {
       "resets": "パスワード再設定メールを送信",

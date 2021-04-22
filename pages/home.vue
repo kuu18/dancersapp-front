@@ -41,14 +41,7 @@
               {{ feed.comments.length }}
             </v-btn>
             <eventposts-card-like-btn :eventpost-id="feed.id" />
-            <v-btn
-              color="orange lighten-2"
-              icon
-            >
-              <v-icon>
-                mdi-bookmark-plus-outline
-              </v-icon>
-            </v-btn>
+            <eventposts-card-schedule-btn :eventpost-id="feed.id" />
 
             <v-spacer />
             <p class="mb-0">
