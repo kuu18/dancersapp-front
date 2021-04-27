@@ -2,7 +2,6 @@
   <v-app-bar
     light
     color="white"
-    flat
   >
     <nuxt-link
       :to="`/${item.user.user_name}`"

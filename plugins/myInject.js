@@ -17,7 +17,7 @@ class MyInject {
     return dateTimeFormat.format(new Date(date))
   }
 
-  homeLinkTo (name = 'profile') {
+  homeLinkTo (name = 'home') {
     return { name }
   }
 

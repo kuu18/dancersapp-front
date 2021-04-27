@@ -1,5 +1,5 @@
 <template>
-  <div id="logged-in-home">
+  <div id="schedules">
     <v-parallax>
       <v-img
         :src="homeImg"
@@ -103,7 +103,7 @@
           :md="container.md"
         >
           <v-card-title>
-            全てのスケジュールされたイベント
+            全てのイベント
           </v-card-title>
 
           <v-divider class="mb-4" />
@@ -181,9 +181,8 @@ export default {
 }
 </script>
 
-<!-- css 追加 -->
 <style lang="scss">
-#logged-in-home {
+#schedules {
   .v-parallax__content {
     padding: 0;
   }

@@ -13,9 +13,6 @@
             <v-row>
               <v-col cols="12">
                 <eventposts-card-app-bar :item="eventpost" />
-                <v-card-title>
-                  {{ eventpost.event_name }}
-                </v-card-title>
                 <v-img
                   :src="eventpost.image_url"
                 />
@@ -23,6 +20,7 @@
             </v-row>
             <v-row>
               <v-col>
+                <v-card-title>{{ eventpost.event_name }}</v-card-title>
                 <v-card-title>{{ dateFormat(eventpost.event_date) }}〜</v-card-title>
                 <v-card-subtitle>イベント概要</v-card-subtitle>
                 <v-card-text>{{ eventpost.content }}</v-card-text>

@@ -30,7 +30,8 @@ export const state = () => ({
     color: 'error',
     timeout: 4000
   },
-  schedules: []
+  schedules: [],
+  searchUsers: []
 })
 
 export const getters = {}
@@ -50,6 +51,9 @@ export const mutations = {
   },
   setSchedules (state, payload) {
     state.schedules = payload
+  },
+  setSearchUsers (state, payload) {
+    state.serchUsers = payload
   },
   setRememberRoute (state, payload) {
     state.rememberRoute = payload
@@ -216,5 +220,11 @@ export const actions = {
         loadState.$state.complete()
       }
     })
+  },
+  async getSearchUsers ({ commit }, users) {
+    await this.$axios.$get(
+        `/api/v1/users/search?name_cont=${users.name_cont}&user_name_cont=${users.user_name_cont}`
+    )
+      .then(response => commit('setSearchUsers', response))
   }
 }
