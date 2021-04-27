@@ -83,7 +83,8 @@ export default {
       navMenus: [
         { name: 'home', icon: 'mdi-home' },
         { name: 'schedules', icon: 'mdi-calendar-clock' },
-        { name: 'search', icon: 'mdi-magnify' }
+        { name: 'search-users', icon: 'mdi-account-search-outline' },
+        { name: 'search-eventposts', icon: 'mdi-calendar-search' }
       ],
       currentUser: this.$store.state.currentUser.user,
       dialog: false,

@@ -86,7 +86,7 @@ export default {
     async update () {
       this.loading = true
       if (this.isValid) {
-        await this.$axios.$patch('/api/v1/users/chenge_password', this.params)
+        await this.$axios.$patch('/api/v1/users/change_password', this.params)
           .then(response => this.succeeded(response))
       }
       this.loading = false

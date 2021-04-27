@@ -18,7 +18,11 @@
 
             <v-spacer />
 
-            <v-btn icon>
+            <v-btn
+              icon
+              link
+              to="/search/users"
+            >
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </v-toolbar>
@@ -65,7 +69,6 @@ export default {
   },
   methods: {
     infiniteHandler ($state) {
-      console.log(this.$route.params.userName)
       if (this.$route.name === 'userName-following') {
         const params = this.$route.params.userName
         this.$store.dispatch('getUserFollowing', { $state, params })

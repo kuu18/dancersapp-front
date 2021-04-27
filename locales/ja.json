@@ -9,8 +9,12 @@
     "login": "ログイン",
     "logout": "ログアウト",
     "profile": "プロフィール",
-    "schedules": "イベントスケジュール",
-    "search": "探す",
+    "schedules": "イベント管理",
+    "searches": "検索する",
+    "search": {
+      "users": "ユーザーを検索",
+      "eventposts": "イベントを検索"
+    },
     "password": {
       "resets": "パスワード再設定メールを送信",
       "new": "新しいパスワードを登録する"

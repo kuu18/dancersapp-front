@@ -12,6 +12,7 @@
           v-for="(feed, i) in feedItems"
           :key="`card-${i}`"
           class="mx-auto my-8"
+          color="white"
         >
           <eventposts-card-app-bar :item="feed" />
           <nuxt-link :to="`/eventpost/${feed.id}`">
