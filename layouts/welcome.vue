@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <welcome-app-bar
-      :menus="menus"
+      :menus="appBarMenu"
       :img-height="imgHeight"
     />
     <ui-toaster />
@@ -36,52 +36,64 @@
       </v-row>
     </v-img>
     <v-sheet>
-      <v-container
-        fluid
-        :style="{ maxWidth: '1280px' }"
+      <v-img
+        id="scroll-top"
+        light
+        gradient="to top right, rgba(255, 255, 255,.8), rgba(255, 255, 255,.8)"
+        :src="image_src2"
+        :height="imgHeight"
+        max-width="1920"
+        max-height="1080"
       >
-        <v-row
-          v-for="(menu, i) in menus"
-          :key="`menu-${i}`"
+        <v-container
+          fluid
+          :style="{ maxWidth: '1280px' }"
         >
-          <v-col
-            :id="menu.title"
-            cols="12"
+          <v-row
+            v-for="(menu, i) in menus"
+            :key="`menu-${i}`"
           >
-            <v-card flat>
+            <v-col
+              :id="menu.title"
+              cols="12"
+            >
               <v-card-title class="justify-center display-1">
                 {{ $t(`menus.${menu.title}`) }}
               </v-card-title>
               <v-card-text class="text-center">
                 {{ menu.subtitle }}
               </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12">
-            <div :is="`wel-${menu.title}`" />
-          </v-col>
-        </v-row>
-      </v-container>
+            </v-col>
+            <v-col cols="12">
+              <div :is="`wel-${menu.title}`" />
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-img>
     </v-sheet>
   </v-app>
 </template>
 
 <script>
 import welAbout from '~/components/welcome/welAbout'
-import welUsage from '~/components/welcome/welUsage'
+import welStart from '~/components/welcome/welStart'
 export default {
   name: 'Welcome',
   components: {
     welAbout,
-    welUsage
+    welStart
   },
   data () {
     return {
-      imgHeight: 750,
+      imgHeight: 800,
       image_src: require('../assets/images/welcome-img.jpg'),
+      image_src2: require('../assets/images/welcome-back-img.jpg'),
       menus: [
-        { title: 'about', subtitle: 'このサイトはダンサー向けのアプリケーションです。' },
-        { title: 'usage', subtitle: 'このサイトの使い方' }
+        { title: 'about', subtitle: 'DancersAppとは？' },
+        { title: 'start', subtitle: '' }
+      ],
+      appBarMenu: [
+        { title: 'about' }
       ]
     }
   }
