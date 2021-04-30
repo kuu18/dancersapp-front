@@ -2,7 +2,7 @@
   <v-btn
     text
     class="ml-2 font-weight-bold"
-    color="white"
+    color="myred"
     to="/login"
   >
     {{ $t('pages.login') }}

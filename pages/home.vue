@@ -17,6 +17,7 @@
           <eventposts-card-app-bar :item="feed" />
           <nuxt-link :to="`/eventpost/${feed.id}`">
             <v-img
+              :lazy-src="feed.image_url"
               :src="feed.image_url"
             />
           </nuxt-link>
